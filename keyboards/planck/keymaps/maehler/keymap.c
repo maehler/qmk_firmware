@@ -37,6 +37,24 @@ enum planck_keycodes {
 #define FN_ESC LT(FUNCTION, KC_ESC)
 #define SFT_ENT MT(MOD_RSFT, KC_ENT)
 
+enum combo_events {
+  OE_COMBO,
+  AE_COMBO,
+  AA_COMBO,
+  COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM oe_combo[] = {FN_ESC, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM ae_combo[] = {FN_ESC, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM aa_combo[] = {FN_ESC, KC_LBRC, COMBO_END};
+
+combo_t key_combos[] = {
+  [OE_COMBO] = COMBO_ACTION(oe_combo),
+  [AE_COMBO] = COMBO_ACTION(ae_combo),
+  [AA_COMBO] = COMBO_ACTION(aa_combo)
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -138,6 +156,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case AA_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code(KC_LBRC);
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case OE_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code(KC_SCLN);
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case AE_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code(KC_QUOT);
+        unregister_code(KC_CAPS);
+      }
+      break;
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
