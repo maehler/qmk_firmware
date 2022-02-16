@@ -40,4 +40,4 @@
 #define ENCODERS_PAD_B { B13 }
 
 // Delay between registering and unregistering a tapped keycode
-#define TAP_CODE_DELAY 50
+#define TAP_CODE_DELAY 20
