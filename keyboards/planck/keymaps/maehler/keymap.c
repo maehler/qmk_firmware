@@ -38,21 +38,30 @@ enum planck_keycodes {
 #define SFT_ENT MT(MOD_RSFT, KC_ENT)
 
 enum combo_events {
-  OE_COMBO,
-  AE_COMBO,
-  AA_COMBO,
+  OE_LC_COMBO,
+  OE_UC_COMBO,
+  AE_LC_COMBO,
+  AE_UC_COMBO,
+  AA_LC_COMBO,
+  AA_UC_COMBO,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM oe_combo[] = {FN_ESC, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM ae_combo[] = {FN_ESC, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM aa_combo[] = {FN_ESC, KC_LBRC, COMBO_END};
+const uint16_t PROGMEM oe_lc_combo[] = {FN_ESC, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM oe_uc_combo[] = {FN_ESC, KC_A, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM ae_lc_combo[] = {FN_ESC, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM ae_uc_combo[] = {FN_ESC, KC_A, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM aa_lc_combo[] = {FN_ESC, KC_LBRC, COMBO_END};
+const uint16_t PROGMEM aa_uc_combo[] = {FN_ESC, KC_A, KC_LBRC, COMBO_END};
 
 combo_t key_combos[] = {
-  [OE_COMBO] = COMBO_ACTION(oe_combo),
-  [AE_COMBO] = COMBO_ACTION(ae_combo),
-  [AA_COMBO] = COMBO_ACTION(aa_combo)
+  [OE_LC_COMBO] = COMBO_ACTION(oe_lc_combo),
+  [OE_UC_COMBO] = COMBO_ACTION(oe_uc_combo),
+  [AE_LC_COMBO] = COMBO_ACTION(ae_lc_combo),
+  [AE_UC_COMBO] = COMBO_ACTION(ae_uc_combo),
+  [AA_LC_COMBO] = COMBO_ACTION(aa_lc_combo),
+  [AA_UC_COMBO] = COMBO_ACTION(aa_uc_combo)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -160,24 +169,45 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case AA_COMBO:
+    case AA_LC_COMBO:
       if (pressed) {
         register_code(KC_CAPS);
         tap_code(KC_LBRC);
         unregister_code(KC_CAPS);
       }
       break;
-    case OE_COMBO:
+    case AA_UC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code16(LSFT(KC_LBRC));
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case OE_LC_COMBO:
       if (pressed) {
         register_code(KC_CAPS);
         tap_code(KC_SCLN);
         unregister_code(KC_CAPS);
       }
       break;
-    case AE_COMBO:
+    case OE_UC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code16(LSFT(KC_SCLN));
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case AE_LC_COMBO:
       if (pressed) {
         register_code(KC_CAPS);
         tap_code(KC_QUOT);
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case AE_UC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code16(LSFT(KC_QUOT));
         unregister_code(KC_CAPS);
       }
       break;
