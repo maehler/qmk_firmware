@@ -32,12 +32,12 @@ enum combo_events {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM oe_lc_combo[] = {FN_ESC, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM oe_uc_combo[] = {FN_ESC, KC_A, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM ae_lc_combo[] = {FN_ESC, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM ae_uc_combo[] = {FN_ESC, KC_A, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM aa_lc_combo[] = {FN_ESC, KC_LBRC, COMBO_END};
-const uint16_t PROGMEM aa_uc_combo[] = {FN_ESC, KC_A, KC_LBRC, COMBO_END};
+const uint16_t PROGMEM oe_lc_combo[] = {KC_A, KC_I, COMBO_END};
+const uint16_t PROGMEM oe_uc_combo[] = {KC_A, KC_R, KC_I, COMBO_END};
+const uint16_t PROGMEM ae_lc_combo[] = {KC_A, KC_E, COMBO_END};
+const uint16_t PROGMEM ae_uc_combo[] = {KC_A, KC_R, KC_E, COMBO_END};
+const uint16_t PROGMEM aa_lc_combo[] = {KC_A, KC_N, COMBO_END};
+const uint16_t PROGMEM aa_uc_combo[] = {KC_A, KC_R, KC_N, COMBO_END};
 
 combo_t key_combos[] = {
   [OE_LC_COMBO] = COMBO_ACTION(oe_lc_combo),
