@@ -41,3 +41,6 @@
 
 // Delay between registering and unregistering a tapped keycode
 #define TAP_CODE_DELAY 20
+
+// Set the combo time window
+#define COMBO_TERM 15
