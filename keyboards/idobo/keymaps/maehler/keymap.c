@@ -17,6 +17,7 @@
 
 enum layers {
     _QWERTY,
+    _COLEMAK,
     _FUNCTION,
     _LOWER,
     _RAISE,
@@ -27,6 +28,7 @@ enum layers {
 
 enum keycodes {
     QWERTY = SAFE_RANGE,
+    COLEMAK,
     GAMING
 };
 
@@ -39,6 +41,34 @@ enum keycodes {
 // Gaming related keys
 #define GO_GAME TG(_GAMING)
 #define SPC_F LT(_GAMING_FUNC, KC_SPC)
+
+// Swedish character combos
+enum combo_events {
+  OE_LC_COMBO,
+  OE_UC_COMBO,
+  AE_LC_COMBO,
+  AE_UC_COMBO,
+  AA_LC_COMBO,
+  AA_UC_COMBO,
+  COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM oe_lc_combo[] = {KC_A, KC_I, COMBO_END};
+const uint16_t PROGMEM oe_uc_combo[] = {KC_A, KC_R, KC_I, COMBO_END};
+const uint16_t PROGMEM ae_lc_combo[] = {KC_A, KC_E, COMBO_END};
+const uint16_t PROGMEM ae_uc_combo[] = {KC_A, KC_R, KC_E, COMBO_END};
+const uint16_t PROGMEM aa_lc_combo[] = {KC_A, KC_N, COMBO_END};
+const uint16_t PROGMEM aa_uc_combo[] = {KC_A, KC_R, KC_N, COMBO_END};
+
+combo_t key_combos[] = {
+  [OE_LC_COMBO] = COMBO_ACTION(oe_lc_combo),
+  [OE_UC_COMBO] = COMBO_ACTION(oe_uc_combo),
+  [AE_LC_COMBO] = COMBO_ACTION(ae_lc_combo),
+  [AE_UC_COMBO] = COMBO_ACTION(ae_uc_combo),
+  [AA_LC_COMBO] = COMBO_ACTION(aa_lc_combo),
+  [AA_UC_COMBO] = COMBO_ACTION(aa_uc_combo)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -62,6 +92,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ESC_FN,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_INS,  KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_UP,   KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, ENT_SFT, \
     _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC,  RAISE,   KC_RGUI, KC_RALT, KC_RCTL, _______  \
+ ),
+
+ [_COLEMAK] = LAYOUT_ortho_5x15(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    _______, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, _______, \
+    _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    _______, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    _______, \
+    _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, _______, KC_K,    KC_M,    _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
  ),
 
 /* FUNCTION
@@ -106,22 +144,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        |        |        |        |        |        |        |        | RGB VI | RGB TG |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        | VOL UP | PREV   |        |        |        |        | NEXT   | VOL UP | MUTE   |        | RGB VD | RGB MD |
+ * |        | Reset  |        | VOL -  | Prev   |        |        |        |        |        | Next   | VOL +  |        | RGB VD | RGB MD |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |        |        |        |        |        | RESET  |        |        |        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |        |        |        |        |        |        |        |        |        |        | QWERTY | Colemak|        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * | Mute   |        |        |        |        |        |        |        |        |        |        |        |        |        | Play   |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
  [_ADJUST] = LAYOUT_ortho_5x15(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_VAI, RGB_TOG, \
-    _______, _______, _______, KC_VOLU, KC_MPRV, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_MUTE, _______, RGB_VAD, RGB_MOD, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______, _______, _______, \
+    _______, RESET,   _______, KC_VOLD, KC_MPRV, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLU, _______, RGB_VAD, RGB_MOD, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY  \
+    KC_MUTE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY  \
  ),
 
 [_GAMING] = LAYOUT_ortho_5x15(
@@ -144,3 +182,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+      break;
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case AA_LC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code(KC_LBRC);
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case AA_UC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code16(LSFT(KC_LBRC));
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case OE_LC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code(KC_SCLN);
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case OE_UC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code16(LSFT(KC_SCLN));
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case AE_LC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code(KC_QUOT);
+        unregister_code(KC_CAPS);
+      }
+      break;
+    case AE_UC_COMBO:
+      if (pressed) {
+        register_code(KC_CAPS);
+        tap_code16(LSFT(KC_QUOT));
+        unregister_code(KC_CAPS);
+      }
+      break;
+  }
+}
+

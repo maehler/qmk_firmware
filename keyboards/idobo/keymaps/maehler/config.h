@@ -16,6 +16,5 @@
 
 #pragma once
 
-
-// place overrides here
-
+// Set the combo time window
+#define COMBO_TERM 15
