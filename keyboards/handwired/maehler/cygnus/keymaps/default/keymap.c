@@ -36,34 +36,34 @@ enum cygnus_keycodes {
 #define FN_ESC LT(_FUNCTION, KC_ESC)
 
 // QWERTY home row mods
-#define A_LSFT MT(MOD_LSFT, KC_A)
-#define S_LALT MT(MOD_LALT, KC_S)
-#define D_LGUI MT(MOD_LGUI, KC_D)
-#define F_LCTL MT(MOD_LCTL, KC_F)
-#define J_RCTL MT(MOD_RCTL, KC_J)
-#define K_RGUI MT(MOD_RGUI, KC_K)
-#define L_RALT MT(MOD_RALT, KC_L)
-#define SCLN_RSFT MT(MOD_RSFT, KC_SCLN)
+#define A_LSFT LSFT_T(KC_A)
+#define S_LALT LALT_T(KC_S)
+#define D_LGUI LGUI_T(KC_D)
+#define F_LCTL LCTL_T(KC_F)
+#define J_RCTL RCTL_T(KC_J)
+#define K_RGUI RGUI_T(KC_K)
+#define L_RALT RALT_T(KC_L)
+#define SCLN_RSFT RSFT_T(KC_SCLN)
 
 // COLEMAK home row mods
-#define R_LALT MT(MOD_LALT, KC_R)
-#define S_LGUI MT(MOD_LGUI, KC_S)
-#define T_LCTL MT(MOD_LCTL, KC_T)
-#define N_RCTL MT(MOD_RCTL, KC_N)
-#define E_RGUI MT(MOD_RGUI, KC_E)
-#define I_RALT MT(MOD_RALT, KC_I)
-#define O_RSFT MT(MOD_RSFT, KC_O)
+#define R_LALT LALT_T(KC_R)
+#define S_LGUI LGUI_T(KC_S)
+#define T_LCTL LCTL_T(KC_T)
+#define N_RCTL RCTL_T(KC_N)
+#define E_RGUI RGUI_T(KC_E)
+#define I_RALT RALT_T(KC_I)
+#define O_RSFT RSFT_T(KC_O)
 
 // Lower/raise left side
-#define F2_LALT MT(MOD_LALT, KC_F2)
-#define F3_LGUI MT(MOD_LGUI, KC_F3)
-#define F4_LCTL MT(MOD_LCTL, KC_F4)
+#define F2_LALT LALT_T(KC_F2)
+#define F3_LGUI LGUI_T(KC_F3)
+#define F4_LCTL LCTL_T(KC_F4)
 
 // Raise right side
-#define MINS_RCTL MT(MOD_RCTL, KC_MINS)
-#define EQL_RGUI MT(MOD_RGUI, KC_EQL)
-#define LBRC_RALT MT(MOD_RALT, KC_LBRC)
-#define RBRC_RSFT MT(MOD_RSFT, KC_RBRC)
+#define MINS_RCTL RCTL_T(KC_MINS)
+#define EQL_RGUI RGUI_T(KC_EQL)
+#define LBRC_RALT RALT_T(KC_LBRC)
+#define RBRC_RSFT RSFT_T(KC_RBRC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
